@@ -8,7 +8,7 @@ import tensorflow as tf
 import numpy as np
 
 
-root_dir = 'files'
+root_dir = 'DataSet/fit'
 
 
 def is_image(file_name):
@@ -123,7 +123,7 @@ def create_comparing_vectors(root_path=root_dir):
             comparing_labels = comparison.keys()
             for comparing_label in comparing_labels:
                 x_right.extend(all_vectors.get(comparing_label))
-                weigts_vector.extend([comparison.get(comparing_label)] * 10)
+                weigts_vector.extend([comparison.get(comparing_label)] * len(all_vectors.get(comparing_label)))
     return np.array(x_left), np.array(x_right), np.array(weigts_vector)
 
 
