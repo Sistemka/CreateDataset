@@ -15,6 +15,9 @@ flake8-unused-arguments = "*"
 flake8-builtins = "*"
 
 [packages]
+pillow = "*"
+tensorflow = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.6"
