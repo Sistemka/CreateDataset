@@ -28,8 +28,8 @@ def make_square(img, min_size=224, fill_color=(255, 255, 255, 0)) -> Image:
     output_size = min_size, min_size
     x, y = img.size
     max_size = max(x, y)
-    coeff = min_size/max_size
-    x, y = round(x*coeff), round(y*coeff)
+    coeff = min_size / max_size
+    x, y = round(x * coeff), round(y * coeff)
     img = img.resize((x, y), 1)
     size = max(min_size, x, y)
     new_im = Image.new('RGB', (size, size), fill_color)
@@ -117,13 +117,13 @@ def create_comparing_vectors(root_path=root_dir):
         root_path)  # обсудить что надо принимать
     all_labels = all_vectors.keys()
     for label in all_labels:
-        x_left.extend(all_vectors.get(label)*len(all_labels))
+        x_left.extend(all_vectors.get(label) * len(all_labels))
         with open(os.path.join(root_path, label, "compare.txt"), "r") as file:
             comparison = json.load(file)
             comparing_labels = comparison.keys()
             for comparing_label in comparing_labels:
                 x_right.extend(all_vectors.get(comparing_label))
-                weigts_vector.extend([comparison.get(comparing_label)]*10)
+                weigts_vector.extend([comparison.get(comparing_label)] * 10)
     return np.array(x_left), np.array(x_right), np.array(weigts_vector)
 
 
@@ -175,4 +175,4 @@ def add_picture(img, label):
             Error label: %s
             Existing labels: %s
             """ % (label, os.listdir(root_dir)))
-    img.save(os.path.join(root_dir, label, str(hash(time()))+".png"))
+    img.save(os.path.join(root_dir, label, str(hash(time())) + ".png"))
