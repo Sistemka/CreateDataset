@@ -17,7 +17,7 @@ def is_image(file_name):
         if file_name.split('.')[-1].lower() in image_formats:
             return True
         return False
-    except:
+    except Exception:
         return False
 
 
@@ -96,7 +96,7 @@ def auto_set_comparison(root_path=root_dir):
     for folder in dirs:
         comparing_dict = {}
         for comparing_dir in dirs:
-            if folder== comparing_dir:
+            if folder == comparing_dir:
                 comparing_dict[comparing_dir] = 1
             else:
                 comparing_dict[comparing_dir] = 0
@@ -135,7 +135,7 @@ def add_label(label_name, comparing_dict):
         raise ValueError("""
             Please compare your label with existing.
             Existing labels are: %s 
-            Input has to be like:
+            Input has to be like: 
             {'#label#' : "#weight#"}
             F.ex : {"boots" : 0}
             """ % os.listdir(root_dir))
