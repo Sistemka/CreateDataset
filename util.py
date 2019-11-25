@@ -135,7 +135,7 @@ def add_label(label_name, comparing_dict):
         raise ValueError("""
             Please compare your label with existing.
             Existing labels are: %s 
-            Input has to be like: 
+            Input has to be like:
             {'#label#' : "#weight#"}
             F.ex : {"boots" : 0}
             """ % os.listdir(root_dir))
