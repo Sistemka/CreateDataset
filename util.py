@@ -1,10 +1,12 @@
+import json
 import os
 from os.path import isfile
+from time import time
+
 from PIL import Image
 import tensorflow as tf
-import json
-from time import time
 import numpy as np
+
 
 root_dir = 'files'
 
@@ -43,12 +45,12 @@ def img2vec_that_saves_proportions(image_path):
 def make_vectors_from_all(root_path=root_dir) -> list:
     dirs = os.listdir(root_path)
     final_list = []
-    for dir in dirs:
-        for file in os.listdir(os.path.join(root_path, dir)):
-            full_file_path = os.path.join(root_path, dir, file)
+    for folder in dirs:
+        for file in os.listdir(os.path.join(root_path, folder)):
+            full_file_path = os.path.join(root_path, folder, file)
             if isfile(full_file_path):
                 final_list.append({
-                    "type": dir.split('/')[-1],
+                    "type": folder.split('/')[-1],
                     "vector": img2vec_that_saves_proportions(full_file_path)
                 })
     return final_list
@@ -57,12 +59,12 @@ def make_vectors_from_all(root_path=root_dir) -> list:
 def make_vectors_from_all_and_return_json(root_path=root_dir) -> list:
     dirs = os.listdir(root_path)
     final_list = []
-    for dir in dirs:
-        for file in os.listdir(os.path.join(root_path, dir)):
-            full_file_path = os.path.join(root_path, dir, file)
+    for folder in dirs:
+        for file in os.listdir(os.path.join(root_path, folder)):
+            full_file_path = os.path.join(root_path, folder, file)
             if is_image(full_file_path):
                 final_list.append({
-                    "type": dir.split('/')[-1],
+                    "type": folder.split('/')[-1],
                     "vector": str(img2vec_that_saves_proportions(full_file_path))
                 })
     return final_list
@@ -71,15 +73,15 @@ def make_vectors_from_all_and_return_json(root_path=root_dir) -> list:
 def make_vectors_from_all_and_return_dict(root_path=root_dir) -> dict:
     dirs = os.listdir(root_path)
     final_list = {}
-    for dir in dirs:
-        for file in os.listdir(os.path.join(root_path, dir)):
-            full_file_path = os.path.join(root_path, dir, file)
+    for folder in dirs:
+        for file in os.listdir(os.path.join(root_path, folder)):
+            full_file_path = os.path.join(root_path, folder, file)
             if is_image(full_file_path):
-                if final_list.get(dir.split('/')[-1]):
-                    final_list[dir.split(
+                if final_list.get(folder.split('/')[-1]):
+                    final_list[folder.split(
                         '/')[-1]].append(img2vec_that_saves_proportions(full_file_path))
                 else:
-                    final_list[dir.split(
+                    final_list[folder.split(
                         '/')[-1]] = [img2vec_that_saves_proportions(full_file_path)]
     return final_list
 
@@ -91,14 +93,14 @@ def auto_set_comparison(root_path=root_dir):
     На остальное не похож совсем (0)
     """
     dirs = os.listdir(root_path)
-    for dir in dirs:
+    for folder in dirs:
         comparing_dict = {}
         for comparing_dir in dirs:
-            if dir == comparing_dir:
+            if folder== comparing_dir:
                 comparing_dict[comparing_dir] = 1
             else:
                 comparing_dict[comparing_dir] = 0
-        with open(os.path.join(root_path, dir, "compare.txt"), 'w') as file:
+        with open(os.path.join(root_path, folder, "compare.txt"), 'w') as file:
             file.write(json.dumps(comparing_dict))
 
 
