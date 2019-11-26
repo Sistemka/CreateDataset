@@ -65,7 +65,8 @@ def make_vectors_from_all_and_return_json(root_path=root_dir) -> list:
             if is_image(full_file_path):
                 final_list.append({
                     "type": folder.split('/')[-1],
-                    "vector": str(img2vec_that_saves_proportions(full_file_path))
+                    "vector": str(img2vec_that_saves_proportions(full_file_path)),
+                    "url": full_file_path
                 })
     return final_list
 
